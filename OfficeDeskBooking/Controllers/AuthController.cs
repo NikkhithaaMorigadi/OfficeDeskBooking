@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login(LoginRequestDto request)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x =>
-            x.Email == request.Email &&
+            x.UserEmail == request.Email &&
             x.Password == request.Password);
 
         if (user == null)
@@ -49,7 +49,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Register(RegisterRequestDto request)
     {
         var existingUser = await _context.Users
-            .FirstOrDefaultAsync(x => x.Email == request.Email);
+            .FirstOrDefaultAsync(x => x.UserEmail == request.Email);
 
         if (existingUser != null)
         {
@@ -59,7 +59,7 @@ public class AuthController : ControllerBase
         var user = new User
         {
             UserName = request.UserName,
-            Email = request.Email,
+            UserEmail = request.Email,
             Password = request.Password // Hash in production
         };
 
