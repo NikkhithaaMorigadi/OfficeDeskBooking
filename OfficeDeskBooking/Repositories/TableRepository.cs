@@ -32,6 +32,8 @@ public class TableRepository : ITableRepository
                 TableId = t.TableId,
                 TableName = t.TableName,
                 Floor = t.Floor,
+                RoomId = t.RoomId,
+                RoomName = t.Room.RoomName,
                 Seats = t.Seats
                     .OrderBy(s => s.SeatNumber)
                     .Select(s => new SeatDto

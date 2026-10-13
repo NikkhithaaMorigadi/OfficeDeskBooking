@@ -10,5 +10,9 @@ public class Table
 
     public int TotalSeats { get; set; }
 
+    public int RoomId { get; set; }
+
+    public Room Room { get; set; } = null!;
+
     public ICollection<Seat> Seats { get; set; } = new List<Seat>();
 }

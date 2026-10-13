@@ -55,6 +55,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 });
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    await DbInitializer.SeedAsync(scope.ServiceProvider.GetRequiredService<OfficeDbContext>());
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

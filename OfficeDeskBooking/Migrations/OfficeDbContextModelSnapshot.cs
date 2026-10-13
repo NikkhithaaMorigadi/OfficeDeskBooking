@@ -47,6 +47,36 @@ namespace OfficeDeskBooking.Migrations
                     b.ToTable("Bookings");
                 });
 
+            modelBuilder.Entity("OfficeDeskBooking.API.Models.Room", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"));
+
+                    b.Property<string>("RoomName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("RoomId");
+
+                    b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            RoomId = 1,
+                            RoomName = "Room 1"
+                        },
+                        new
+                        {
+                            RoomId = 2,
+                            RoomName = "Room 2"
+                        });
+                });
+
             modelBuilder.Entity("OfficeDeskBooking.API.Models.Seat", b =>
                 {
                     b.Property<int>("SeatId")
@@ -82,6 +112,11 @@ namespace OfficeDeskBooking.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
+                    b.Property<int>("RoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
                     b.Property<string>("TableName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -90,6 +125,8 @@ namespace OfficeDeskBooking.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("TableId");
+
+                    b.HasIndex("RoomId");
 
                     b.ToTable("Tables");
                 });
@@ -143,6 +180,22 @@ namespace OfficeDeskBooking.Migrations
                         .IsRequired();
 
                     b.Navigation("Table");
+                });
+
+            modelBuilder.Entity("OfficeDeskBooking.API.Models.Table", b =>
+                {
+                    b.HasOne("OfficeDeskBooking.API.Models.Room", "Room")
+                        .WithMany("Tables")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("OfficeDeskBooking.API.Models.Room", b =>
+                {
+                    b.Navigation("Tables");
                 });
 
             modelBuilder.Entity("OfficeDeskBooking.API.Models.Table", b =>
