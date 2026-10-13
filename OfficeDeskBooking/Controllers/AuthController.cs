@@ -41,7 +41,7 @@ public class AuthController : ControllerBase
         return Ok(new LoginResponseDto
         {
             Token = token,
-            EmployeeName = user.EmployeeName,
+            UserName = user.UserName,
             Role = user.Role
         });
     }
@@ -58,7 +58,7 @@ public class AuthController : ControllerBase
 
         var user = new User
         {
-            EmployeeName = request.EmployeeName,
+            UserName = request.UserName,
             Email = request.Email,
             Password = request.Password // Hash in production
         };

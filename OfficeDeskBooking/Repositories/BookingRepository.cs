@@ -41,7 +41,6 @@ public class BookingRepository : IBookingRepository
         {
 
         }
-
         return "Seat booked successfully";
     }
 }
