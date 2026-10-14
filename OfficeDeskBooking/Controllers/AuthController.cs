@@ -23,7 +23,7 @@ public class AuthController : ControllerBase
         _context = context;
         _jwtService = jwtService;
     }
-
+//for login
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequestDto request)
     {

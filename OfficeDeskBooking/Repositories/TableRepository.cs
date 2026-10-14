@@ -13,7 +13,7 @@ public class TableRepository : ITableRepository
     {
         _context = context;
     }
-
+//get the table data
     public async Task<List<TableDto>> GetTablesAsync(DateTime bookingDate)
     {
         var bookedSeats = await _context.Bookings
